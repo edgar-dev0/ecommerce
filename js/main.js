@@ -1,22 +1,5 @@
 const menu = document.querySelector('.header_menu');
 const section = document.querySelector('.section');
-const arrayClass = document.querySelectorAll('.header_list_item');
-
-arrayClass[0].addEventListener('click', function(){
-  console.log('seleccionaste el primer evento');
-  section.classList.add('red');
-
-});
-
-arrayClass[1].addEventListener('click', function(){
-  console.log('seleccionaste el segundo evento');
-  section.classList.remove('red');
-});
-
-arrayClass[2].addEventListener('click', function(){
-  console.log('seleccionaste el tercer evento');
-  section.classList.toggle('red');
-});
 
 function events() {
   const menu_open = document.querySelector('.menu_open');
@@ -32,6 +15,12 @@ function events() {
   });
   
   menu_close.addEventListener('click', function() {
+    header_list.classList.remove('active');
+    menu_open.classList.remove('active');
+    menu_close.classList.remove('active');
+  });
+
+  header_list.addEventListener('click', function() {
     header_list.classList.remove('active');
     menu_open.classList.remove('active');
     menu_close.classList.remove('active');
@@ -52,7 +41,7 @@ function printProducts(db) {
         </div>
         <div class="product_description">
           <h4>Nombre: ${product.name}</h4>
-          <h3>Precio: $${product.price}</h3>
+          <h3>USD $${product.price}</h3>
           <p>Stock: ${product.quantity}</p>
           <button id="${product.id}" class="btn_buy">Agegar al carrito</button>
         </div>
@@ -168,41 +157,7 @@ function totalCar(db) {
   info_total.textContent = `Total: $${totalProducts}`;
 }
 
-const api_url = 'https://ecommercebackend.fundamentos-29.repl.co/';
-//const api_url = 'https://api.escuelajs.co/api/v1/products';
-
-async function getApi() {
-  try {
-    const data = await fetch(api_url);
-    const response = await data.json();
-    window.localStorage.setItem('products', JSON.stringify(response));
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-//principios solid
-
-async function main() {
-  const section = document.querySelector('.section');
-  const db = {
-    products: JSON.parse(window.localStorage.getItem('products')) || await getApi(),
-    car: JSON.parse(window.localStorage.getItem('car')) || {}
-  }
-  //Detecta los eventos de los botones de menu de la pagina
-  events();
-  //Imprime las cards de los productos en venta
-  printProducts(db);
-  //Agrega los productos a la bd del carrito de compras
-  addToCar(db);
-  //Imprime la card de los articulos cargados al carrito
-  printToCar(db);
-  //Maneja los eventos del carrito de compras
-  handleCar(db); 
-  //Calcula los importes totales del carrito
-  totalCar(db);
-
+function buyCar(db) {
   const btnBuy = document.querySelector('.btn_buy');
   btnBuy.addEventListener('click', function(){    
     if(!Object.keys(db.car).length) {
@@ -231,6 +186,116 @@ async function main() {
     printToCar(db);
     totalCar(db);
   });
+}
+
+function handleList(db) {
+  const header_list_item = document.querySelectorAll('.header_list_item');
+  header_list_item[0].addEventListener('click', function() {
+    printProducts(db);
+  });
+  
+  header_list_item[1].addEventListener('click', function() {
+    let html = '';
+    for (const product of db.products) {
+      if(product.category === 'shirt') { //Validamos si el obj en la iteracion cumple la condicion para filtrar los productos
+        html += `
+          <div class="product">
+            <div class="product_img">
+              <img src="${product.image}" alt=""/>
+            </div>
+            <div class="product_description">
+              <h4>Nombre: ${product.name}</h4>
+              <h3>Precio: $${product.price}</h3>
+              <p>Stock: ${product.quantity}</p>
+              <button id="${product.id}" class="btn_buy">Agegar al carrito</button>
+            </div>
+          </div>
+        `
+        section.innerHTML = html;
+      }
+    }
+  });
+  
+  header_list_item[2].addEventListener('click', function() {
+    let html = '';
+    for (const product of db.products) {
+      if(product.category === 'hoddie') { //Validamos si el obj en la iteracion cumple la condicion para filtrar los productos
+        html += `
+          <div class="product">
+            <div class="product_img">
+              <img src="${product.image}" alt=""/>
+            </div>
+            <div class="product_description">
+              <h4>Nombre: ${product.name}</h4>
+              <h3>Precio: $${product.price}</h3>
+              <p>Stock: ${product.quantity}</p>
+              <button id="${product.id}" class="btn_buy">Agegar al carrito</button>
+            </div>
+          </div>
+        `
+        section.innerHTML = html;
+      }
+    }
+  });
+  
+  header_list_item[3].addEventListener('click', function() {
+    let html = '';
+    for (const product of db.products) {
+      if(product.category === 'sweater') { //Validamos si el obj en la iteracion cumple la condicion para filtrar los productos
+        html += `
+          <div class="product">
+            <div class="product_img">
+              <img src="${product.image}" alt=""/>
+            </div>
+            <div class="product_description">
+              <h4>Nombre: ${product.name}</h4>
+              <h3>Precio: $${product.price}</h3>
+              <p>Stock: ${product.quantity}</p>
+              <button id="${product.id}" class="btn_buy">Agegar al carrito</button>
+            </div>
+          </div>
+        `
+        section.innerHTML = html;
+      }
+    }
+  });
+}
+
+async function getApi() {
+  const api_url = 'https://ecommercebackend.fundamentos-29.repl.co/';
+  //const api_url = 'https://api.escuelajs.co/api/v1/products';
+  try {
+    const data = await fetch(api_url);
+    const response = await data.json();
+    window.localStorage.setItem('products', JSON.stringify(response));
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function main() {
+  const section = document.querySelector('.section');
+  const db = {
+    products: JSON.parse(window.localStorage.getItem('products')) || await getApi(),
+    car: JSON.parse(window.localStorage.getItem('car')) || {}
+  }
+  //Detecta los eventos de los botones de menu de la pagina
+  events();
+  //Imprime las cards de los productos en venta
+  printProducts(db);
+  //Agrega los productos a la bd del carrito de compras
+  addToCar(db);
+  //Imprime la card de los articulos cargados al carrito
+  printToCar(db);
+  //Maneja los eventos del carrito de compras
+  handleCar(db); 
+  //Calcula los importes totales del carrito
+  totalCar(db);
+  //Maneja el proceso de compra
+  buyCar(db);
+  //Maneja los botones de navBar
+  handleList(db);  
 }
 
 main();
