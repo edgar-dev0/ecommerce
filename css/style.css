@@ -1,0 +1,229 @@
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 1200px;
+}
+
+img {
+  max-width: 100%;
+}
+
+.header {
+  background-color: lightcoral;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 20px;
+  height: 50px;
+  width: 100%;
+  position: relative;
+  max-width: 1200px;
+}
+
+nav {
+  background-color: rgb(235, 171, 93);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 95%;
+}
+
+  .header_list {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    width: 250px;
+    background-color: lightsteelblue;
+    top: 50px;
+    left: -250px;
+    transition: left 500ms ease;
+  }
+
+    .header_list.active {
+      left: 0;
+      transition: left 500ms ease;
+    }
+
+  .header_list_item {
+    min-width: max-content;
+    cursor: pointer;
+    height: 36px;
+    border: 1px solid;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 30px;
+    padding: 0 8px;
+  }
+
+  .header_menu, .car_button {
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+  }
+
+  .nav_container_button_menu,
+  .nav_container_button_car {
+    align-content: flex-end;
+  }
+
+  .menu_close,
+  .menu_open.active {
+    display: none;
+  }
+
+  .menu_close.active {
+    display: block;
+  }
+
+  .menu_car {
+    background-color: lightgray;
+    position: absolute;
+    top: 50px;
+    right: -100%;
+    width: 100%;
+    height: calc(100vh - 50px);
+    padding: 24px;
+  }
+
+    .menu_car.active {
+      right: 0px;
+      transition: right 500ms ease;
+    }
+
+main {
+  /* width: 100vh; */
+  height: 100%;
+  background-color: lightseagreen;
+}
+
+  .section {
+    background-color: rgb(106, 160, 95);
+    width: 100%;
+    min-width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .section_list {
+    margin: 0;
+  }
+
+  .product {
+    width: 170px;
+    background-color: antiquewhite;
+    border-radius: 10px;
+    padding: 10px;
+    gap: 8px ;
+  }
+
+  .product_img img {
+    max-width: 100%;
+  }
+
+  .car_products {
+    background-color: lightslategray;
+    height: 80%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .car_total {
+    background-color: lightpink;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .btn_pay{
+    padding: 4px;
+  }
+
+    .car_total {
+      width: 80%;
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+  .car_product_image {
+    height: 100%;
+  }
+
+  .car_product_image img {
+    width: 80px;
+  }
+
+  .car_product {
+    display: flex;
+    align-items: center;
+    background-color: antiquewhite;
+    border-radius: 10px;
+    height: 30%;
+  }
+
+  .car_counter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 150px;
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 5px;
+  }
+  
+  .trash, .btn_minus, .btn_plus {
+    width: 20px;
+    cursor: pointer;
+  }
+
+  .section.red {
+    background-color: rgb(107, 107, 173);
+  }
+
+  .red {
+    background-color: brown;
+  }
+
+@media (min-width: 400px) {
+  
+  .header {
+    justify-content: space-evenly;
+    /* overflow: hidden; */
+  }
+  
+  .header_menu {
+    display: none;
+  }
+
+  .header_list {
+    /* display: flex; */
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+    position: static;
+    width: fit-content;
+  }
+
+  .menu_car {
+    width: 500px;
+  }
+
+}
+
