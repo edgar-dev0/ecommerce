@@ -7,6 +7,7 @@ function events() {
   const header_list = document.querySelector('.header_list');
   const car_button = document.querySelector('.car_button');
   const menu_car = document.querySelector('.menu_car');
+  const modal = document.querySelector('.modal');
   
   menu_open.addEventListener('click', function() {
     header_list.classList.add('active');
@@ -29,6 +30,11 @@ function events() {
   car_button.addEventListener('click', function() {
     menu_car.classList.toggle('active');
   });
+
+  modal.addEventListener('click', function(){
+    console.log('click en el modal');
+    modal.classList.remove('active');
+  })
 }
 
 function printProducts(db) {
@@ -37,7 +43,7 @@ function printProducts(db) {
     html += `
       <div class="product">
         <div class="product_img">
-          <img src="${product.image}" alt=""/>
+          <img id="${product.id}" class="modal_img" src="${product.image}" alt=""/>
         </div>
         <div class="product_description">
           <h4>Nombre: ${product.name}</h4>
@@ -58,7 +64,7 @@ function addToCar(db) {
       const id = Number(event.target.id);
       const productFind = db.products.find(function(product){
         return product.id === id;
-      })
+      });
       if(db.car[productFind.id]) {
         db.car[productFind.id].amount++;
       } else {
@@ -201,7 +207,7 @@ function handleList(db) {
         html += `
           <div class="product">
             <div class="product_img">
-              <img src="${product.image}" alt=""/>
+              <img src="${product.image}" id="${product.id}" class="modal_img" alt=""/>
             </div>
             <div class="product_description">
               <h4>Nombre: ${product.name}</h4>
@@ -223,7 +229,7 @@ function handleList(db) {
         html += `
           <div class="product">
             <div class="product_img">
-              <img src="${product.image}" alt=""/>
+              <img src="${product.image}" id="${product.id}" class="modal_img" alt=""/>
             </div>
             <div class="product_description">
               <h4>Nombre: ${product.name}</h4>
@@ -245,7 +251,7 @@ function handleList(db) {
         html += `
           <div class="product">
             <div class="product_img">
-              <img src="${product.image}" alt=""/>
+              <img src="${product.image}" id="${product.id}" class="modal_img" alt=""/>
             </div>
             <div class="product_description">
               <h4>Nombre: ${product.name}</h4>
@@ -260,6 +266,35 @@ function handleList(db) {
     }
   });
 }
+
+function printModalDetails(db) {
+  const productsHTML = document.querySelector('.section');
+  const modal_product = document.querySelector('.modal_product');
+  const modal = document.querySelector('.modal');
+  productsHTML.addEventListener('click', function(event) {
+    if(event.target.classList.contains('modal_img')) {
+      console.log(event.target);
+      const id = Number(event.target.id);
+      const productFind = db.products.find(function(product) {
+        return product.id === id;
+      });
+      modal_product.innerHTML = `
+        <div class="modal_img_product">
+          <img src="${productFind.image}" alt="image product"/>
+        </div>
+        <div class="modal_group">
+          <h3><span>Nombre:</span>${productFind.name}</h3>
+          <h3><span>Descripción:</span>${productFind.description}</h3>
+          <h3><span>Categoria:</span>${productFind.category}</h3>
+          <h3><span>USD:</span>$${productFind.price} | <span>Stock:</span>${productFind.quantity}</h3>
+        </div>
+        <span>X</span>
+      `
+      modal.classList.add('active');
+    }
+  });
+}
+
 
 async function getApi() {
   const api_url = 'https://ecommercebackend.fundamentos-29.repl.co/';
@@ -295,7 +330,9 @@ async function main() {
   //Maneja el proceso de compra
   buyCar(db);
   //Maneja los botones de navBar
-  handleList(db);  
+  handleList(db);
+  //Maneja el modal de detalles de producto
+  printModalDetails(db)
 }
 
 main();

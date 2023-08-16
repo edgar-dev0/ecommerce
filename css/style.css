@@ -72,9 +72,15 @@ nav {
   }
 
   .header_menu, .car_button {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     cursor: pointer;
+  }
+
+  .car_button:hover,
+  .header_menu:hover {
+    /* top: 0; */
+    transform: scale(1.2)
   }
 
   .nav_container_button_menu,
@@ -135,13 +141,13 @@ main {
     width: 170px;
     border-radius: 10px;
     padding: 10px;
-    gap: 8px ;
+    gap: 12px ;
     /* old browsers */
-    background: -moz-linear-gradient(-45deg, #F8F7F1 12%, #a1b1ca 83%);
+    background: -moz-linear-gradient(-45deg, #F8F7F1 12%, #caa6a1 83%);
     /* FF3.6-15 */
-    background: -webkit-linear-gradient(-45deg, #F8F7F1 12%, #a1b1ca 83%);
+    background: -webkit-linear-gradient(-45deg, #F8F7F1 12%, #caa6a1 83%);
     /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(135deg, #F8F7F1 12%, #a1b1ca 83%);
+    background: linear-gradient(135deg, #F8F7F1 12%, #caa6a1 83%);
     -webkit-box-shadow: -9px 10px 5px 0px rgba(189,182,189,1);
     -moz-box-shadow: -9px 10px 5px 0px rgba(189,182,189,1);
     box-shadow: -9px 10px 5px 0px rgba(189,182,189,1);
@@ -150,6 +156,11 @@ main {
 
   .product_img img {
     max-width: 100%;
+  }
+
+  .product_img img:hover {
+    transform: scale(1.2);
+    transition: 500ms ease;
   }
 
   .product_description h4, 
@@ -177,7 +188,6 @@ main {
   }
 
   .car_products {
-    /* background-color: #F8F7F1; */
     height: 80%;
     overflow-y: scroll;
     display: flex;
@@ -191,7 +201,8 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
+    justify-content: space-evenly;
     width: 80%;
     margin: 0 auto;
     border: 1px solid #F8F7F1;
@@ -201,12 +212,6 @@ main {
   .btn_pay{
     padding: 4px;
   }
-
-    .car_total {
-      width: 80%;
-      display: flex;
-      justify-content: space-evenly;
-    }
 
   .car_product_image {
     height: 100%;
@@ -222,11 +227,11 @@ main {
     border-radius: 10px;
     height: 30%;
     /* old browsers */
-    background: -moz-linear-gradient(-45deg, #F8F7F1 12%, #a1b1ca 83%);
+    background: -moz-linear-gradient(-45deg, #F8F7F1 12%, #caa6a1 83%);
     /* FF3.6-15 */
-    background: -webkit-linear-gradient(-45deg, #F8F7F1 12%, #a1b1ca 83%);
+    background: -webkit-linear-gradient(-45deg, #F8F7F1 12%, #caa6a1 83%);
     /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(135deg, #F8F7F1 12%, #a1b1ca 83%);
+    background: linear-gradient(135deg, #F8F7F1 12%, #caa6a1 83%);
   }
 
   .car_counter {
@@ -245,19 +250,59 @@ main {
   }
 
   .modal {
-    background-color: cadetblue;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, .3);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    border: 1.5px solid rgba(209, 213, 219, 0.3);
   }
+
+  .modal.active {
+    display: flex;
+  }
+
+  .modal_product {
+    background-color: #F8F7F1;
+    width: 90%;
+    height: 90%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px;
+    position: relative;
+  }
+
+  .modal_product>span {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .modal_img_product {
+    max-width: 100%;
+  }
+
+  .modal_group span {
+    color:rgb(185, 34, 34);
+  }
+
+
 
 @media (min-width: 400px) {
   
   .header {
     justify-content: space-evenly;
-    /* overflow: hidden; */
   }
   
   .header_menu {
